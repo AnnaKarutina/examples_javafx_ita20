@@ -1,9 +1,12 @@
 package ee.khk;
 
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.Group;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 public class Main extends Application{
 
@@ -15,13 +18,15 @@ public class Main extends Application{
     @Override
     public void start(Stage stage) {
 
-        Group root = new Group();       // juursõlm
-        Scene scene = new Scene(root);  // Scene loomine
-        stage.setScene(scene);          // Scene määramine Stage
+        Label label = new Label("Hello");               // teksti label
+        Button button = new Button("Button");           // nupp
+        Group group = new Group(button);                   // sisseehitatud Group sõlm
+
+        FlowPane root = new FlowPane(label, group);        // juursõlm
+        Scene scene = new Scene(root, 300, 150);     // Scene loomine
+        stage.setScene(scene);                              // Scene määramine Stage jaoks
 
         stage.setTitle("Hello JavaFX");
-        stage.setWidth(300);
-        stage.setHeight(150);
 
         stage.show();
     }
