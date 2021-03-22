@@ -26,11 +26,15 @@ public class Main extends Application{
 
         VBox.setVgrow(okBtn, Priority.ALWAYS);
         okBtn.setMaxHeight(Double.MAX_VALUE);
-        //okBtn.setMaxWidth(100);
+        okBtn.setMaxWidth(100);
+        // VBox täislaius
+        // okBtn.setMaxWidth(Double.MAX_VALUE);
 
         VBox.setVgrow(cancelBtn, Priority.ALWAYS);
         cancelBtn.setMaxHeight(Double.MAX_VALUE);
-        //cancelBtn.setMaxWidth(100);
+        cancelBtn.setMaxWidth(100);
+        // VBox täislaius
+        // cancelBtn.setMaxWidth(Double.MAX_VALUE);
 
         vbox.getChildren().addAll(lbl, okBtn, cancelBtn);
 
