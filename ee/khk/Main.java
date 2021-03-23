@@ -25,6 +25,7 @@ public class Main extends Application{
         Label lbl = new Label("Value");
 
         Slider slider = new Slider(0.0, 20.0, 10.0);
+        slider.setOrientation(Orientation.VERTICAL);
         slider.setShowTickMarks(true);
         slider.setShowTickLabels(true);
         slider.setBlockIncrement(2.0);
