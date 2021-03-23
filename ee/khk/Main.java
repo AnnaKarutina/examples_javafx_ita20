@@ -25,6 +25,7 @@ public class Main extends Application{
     public void start(Stage stage) throws Exception {
 
         TreeItem<String> rootTreeNode = new TreeItem<String>("Languages");
+        rootTreeNode.setExpanded(true);  // раскрываем узел
 
         TreeItem<String> germanics = new TreeItem<String>("Germanic");
         germanics.getChildren().add(new TreeItem<String>("German"));
@@ -44,13 +45,21 @@ public class Main extends Application{
         MultipleSelectionModel<TreeItem<String>> selectionModel = langsTreeView.getSelectionModel();
 
         Label lbl = new Label();
-        // määrame kuular muudatuste jälgimiseks
+
         selectionModel.selectedItemProperty().addListener(new ChangeListener<TreeItem<String>>(){
 
             public void changed(ObservableValue<? extends TreeItem<String>> changed,
                                 TreeItem<String> oldValue, TreeItem<String> newValue){
+                if(newValue != null){
 
-                lbl.setText("Selected: " + newValue.getValue());
+                    String path = newValue.getValue();
+                    TreeItem<String> parent = newValue.getParent();
+                    while(parent != null){
+                        path = parent.getValue() + " / " + path;
+                        parent = parent.getParent();
+                    }
+                    lbl.setText(path);
+                }
             }
         });
 
