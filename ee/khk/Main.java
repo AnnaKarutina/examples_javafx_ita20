@@ -44,7 +44,7 @@ public class Main extends Application{
         MultipleSelectionModel<TreeItem<String>> selectionModel = langsTreeView.getSelectionModel();
 
         Label lbl = new Label();
-        // устанавливаем слушатель для отслеживания изменений
+        // määrame kuular muudatuste jälgimiseks
         selectionModel.selectedItemProperty().addListener(new ChangeListener<TreeItem<String>>(){
 
             public void changed(ObservableValue<? extends TreeItem<String>> changed,
