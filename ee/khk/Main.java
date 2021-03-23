@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 
 import javafx.geometry.Orientation;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ChangeListener;
 
 public class Main extends Application{
 
@@ -30,11 +32,15 @@ public class Main extends Application{
         slider.setMinorTickCount(4);
         slider.setSnapToTicks(true);
 
-        Button btn = new Button("Click");
-        btn.setOnAction(event -> lbl.setText("Slider Value: " + slider.getValue()));
+        slider.valueProperty().addListener(new ChangeListener<Number>(){
 
-        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, slider, lbl, btn);
-        Scene scene = new Scene(root, 300, 250);
+            public void changed(ObservableValue<? extends Number> changed, Number oldValue, Number newValue){
+                lbl.setText("Slider Value: " + newValue);
+            }
+        });
+
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, slider, lbl);
+        Scene scene = new Scene(root, 300, 150);
 
         stage.setScene(scene);
         stage.setTitle("Slider in JavaFX");
