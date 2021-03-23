@@ -4,8 +4,12 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.control.SelectionMode;
 import javafx.geometry.Orientation;
 
 public class Main extends Application{
@@ -18,10 +22,8 @@ public class Main extends Application{
     @Override
     public void start(Stage stage) throws Exception {
 
-        // määrame juurelement
         TreeItem<String> rootTreeNode = new TreeItem<String>("Languages");
 
-        // määrame sisseehitatud elementide hulk - sõlmed
         TreeItem<String> germanics = new TreeItem<String>("Germanic");
         germanics.getChildren().add(new TreeItem<String>("German"));
         germanics.getChildren().add(new TreeItem<String>("English"));
@@ -31,14 +33,31 @@ public class Main extends Application{
         romans.getChildren().add(new TreeItem<String>("Spanish"));
         romans.getChildren().add(new TreeItem<String>("Italian"));
 
-        // lisame sõlmed juurelemendi sisse
         rootTreeNode.getChildren().add(germanics);
         rootTreeNode.getChildren().add(romans);
 
-        // määrame TreeView jaoks juursõlm
         TreeView<String> langsTreeView = new TreeView<String>(rootTreeNode);
         langsTreeView.setPrefSize(150, 200);
-        FlowPane root = new FlowPane(10, 10, langsTreeView);
+
+        // saame valiku mudeli
+        MultipleSelectionModel<TreeItem<String>> selectionModel = langsTreeView.getSelectionModel();
+        // määrame mitmene valik (kui see on nõutud)
+        selectionModel.setSelectionMode(SelectionMode.MULTIPLE);
+
+        Label lbl = new Label();
+        Button btn = new Button("Get Selected");
+        btn.setOnAction(event -> {
+
+            String selected = "";
+            // vaatame kõik elemendid üks teise järel
+            for(TreeItem<String> item : selectionModel.getSelectedItems()){
+
+                selected += item.getValue() + " ";
+            }
+            lbl.setText("Selected: " + selected);
+        });
+
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, langsTreeView, lbl, btn);
 
         Scene scene = new Scene(root, 300, 250);
 
