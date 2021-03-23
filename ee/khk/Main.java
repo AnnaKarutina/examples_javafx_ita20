@@ -23,30 +23,30 @@ public class Main extends Application{
     public void start(Stage stage) {
 
         Button first = new Button("First");
-        // расположем кнопку в нижнем правом углу
+        // paigutame nupp paremal alumisel nurgal
         GridPane.setHalignment(first, HPos.RIGHT);
         GridPane.setValignment(first, VPos.BOTTOM);
 
         Button second = new Button("Second");
 
-        // растянем кнопку по горизонтали
+        // venitame nupp horisontaalselt
         second.setMaxWidth(Double.MAX_VALUE);
         GridPane.setHgrow(second, Priority.ALWAYS);
 
         Button third = new Button("Third");
-        // растянем кнопку по горизонтали и вертикали
+        // venitame nupp horisontaalselt ja vertiklaaselt
         third.setMaxWidth(Double.MAX_VALUE);
         third.setMaxHeight(Double.MAX_VALUE);
         GridPane.setHgrow(third, Priority.ALWAYS);
         GridPane.setVgrow(third, Priority.ALWAYS);
 
         Button fourth = new Button("Fourth");
-        // кнопка заполняет все пространство ячейки
+        // nupp on sama suur nagu tabeli pesa
         fourth.setMaxWidth(Double.MAX_VALUE);
         fourth.setMaxHeight(Double.MAX_VALUE);
         GridPane.setHgrow(fourth, Priority.ALWAYS);
         GridPane.setVgrow(fourth, Priority.ALWAYS);
-        // установим отступ в 10 единиц
+        // määrame taane 10 pixlit
         GridPane.setMargin(fourth, new Insets(10));
 
 
