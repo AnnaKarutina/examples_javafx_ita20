@@ -6,9 +6,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.geometry.Orientation;
 import javafx.geometry.Insets;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class Main extends Application{
 
@@ -27,15 +30,20 @@ public class Main extends Application{
         RadioButton csharpBtn = new RadioButton("C#");
 
         ToggleGroup group = new ToggleGroup();
-        // gruppi loomine
+        // määrame gruppi
         javaBtn.setToggleGroup(group);
         jsBtn.setToggleGroup(group);
         csharpBtn.setToggleGroup(group);
 
-        // vajutuse sündmuse töötlus
-        javaBtn.setOnAction(event -> selectedLbl.setText("Selected: Java"));
-        jsBtn.setOnAction(event -> selectedLbl.setText("Selected: JavaScript"));
-        csharpBtn.setOnAction(event -> selectedLbl.setText("Selected: C#"));
+        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+
+            public void changed(ObservableValue<? extends Toggle> changed, Toggle oldValue, Toggle newValue){
+
+                // saame kätte valitu element RadioButton
+                RadioButton selectedBtn = (RadioButton) newValue;
+                selectedLbl.setText("Selected: " + selectedBtn.getText());
+            }
+        });
 
         FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10);
         root.getChildren().addAll(javaBtn, jsBtn, csharpBtn, selectedLbl);
