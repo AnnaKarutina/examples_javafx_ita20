@@ -4,6 +4,10 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.geometry.Insets;
+import javafx.scene.layout.Priority;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
@@ -19,9 +23,32 @@ public class Main extends Application{
     public void start(Stage stage) {
 
         Button first = new Button("First");
+        // расположем кнопку в нижнем правом углу
+        GridPane.setHalignment(first, HPos.RIGHT);
+        GridPane.setValignment(first, VPos.BOTTOM);
+
         Button second = new Button("Second");
+
+        // растянем кнопку по горизонтали
+        second.setMaxWidth(Double.MAX_VALUE);
+        GridPane.setHgrow(second, Priority.ALWAYS);
+
         Button third = new Button("Third");
+        // растянем кнопку по горизонтали и вертикали
+        third.setMaxWidth(Double.MAX_VALUE);
+        third.setMaxHeight(Double.MAX_VALUE);
+        GridPane.setHgrow(third, Priority.ALWAYS);
+        GridPane.setVgrow(third, Priority.ALWAYS);
+
         Button fourth = new Button("Fourth");
+        // кнопка заполняет все пространство ячейки
+        fourth.setMaxWidth(Double.MAX_VALUE);
+        fourth.setMaxHeight(Double.MAX_VALUE);
+        GridPane.setHgrow(fourth, Priority.ALWAYS);
+        GridPane.setVgrow(fourth, Priority.ALWAYS);
+        // установим отступ в 10 единиц
+        GridPane.setMargin(fourth, new Insets(10));
+
 
         GridPane root = new GridPane();
 
