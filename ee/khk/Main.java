@@ -11,6 +11,8 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.SelectionMode;
 import javafx.geometry.Orientation;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ChangeListener;
 
 public class Main extends Application{
 
@@ -39,25 +41,20 @@ public class Main extends Application{
         TreeView<String> langsTreeView = new TreeView<String>(rootTreeNode);
         langsTreeView.setPrefSize(150, 200);
 
-        // saame valiku mudeli
         MultipleSelectionModel<TreeItem<String>> selectionModel = langsTreeView.getSelectionModel();
-        // määrame mitmene valik (kui see on nõutud)
-        selectionModel.setSelectionMode(SelectionMode.MULTIPLE);
 
         Label lbl = new Label();
-        Button btn = new Button("Get Selected");
-        btn.setOnAction(event -> {
+        // устанавливаем слушатель для отслеживания изменений
+        selectionModel.selectedItemProperty().addListener(new ChangeListener<TreeItem<String>>(){
 
-            String selected = "";
-            // vaatame kõik elemendid üks teise järel
-            for(TreeItem<String> item : selectionModel.getSelectedItems()){
+            public void changed(ObservableValue<? extends TreeItem<String>> changed,
+                                TreeItem<String> oldValue, TreeItem<String> newValue){
 
-                selected += item.getValue() + " ";
+                lbl.setText("Selected: " + newValue.getValue());
             }
-            lbl.setText("Selected: " + selected);
         });
 
-        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, langsTreeView, lbl, btn);
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, langsTreeView, lbl);
 
         Scene scene = new Scene(root, 300, 250);
 
