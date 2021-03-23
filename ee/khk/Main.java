@@ -3,8 +3,9 @@ package ee.khk;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.ColumnConstraints;
 
 public class Main extends Application{
 
@@ -16,32 +17,26 @@ public class Main extends Application{
     @Override
     public void start(Stage stage) {
 
-        Button topBtn = new Button("Top");
-        AnchorPane.setTopAnchor(topBtn, 10.0);
-        AnchorPane.setLeftAnchor(topBtn, 60.0);
-        AnchorPane.setRightAnchor(topBtn, 60.0);
+        Label first = new Label("First");
+        Label second = new Label("Second");
+        Label third = new Label("Third");
 
-        Button bottomBtn = new Button("Bottom");
-        AnchorPane.setBottomAnchor(bottomBtn, 10.0);
-        AnchorPane.setLeftAnchor(bottomBtn, 60.0);
-        AnchorPane.setRightAnchor(bottomBtn, 60.0);
+        GridPane root = new GridPane();
+        root.getColumnConstraints().add(new ColumnConstraints(80));
+        root.getColumnConstraints().add(new ColumnConstraints(150));
+        root.getColumnConstraints().add(new ColumnConstraints(70));
 
-        Button leftBtn = new Button("Left");
-        AnchorPane.setTopAnchor(leftBtn, 30.0);
-        AnchorPane.setLeftAnchor(leftBtn, 15.0);
-        AnchorPane.setBottomAnchor(leftBtn, 30.0);
+        root.setGridLinesVisible(true); // teeme tabel (grid) nähtavaks
+        root.setColumnIndex(first, 0);
+        root.setColumnIndex(second, 1);
+        root.setColumnIndex(third, 2);
+        root.getChildren().addAll(first, second, third);
 
-        Button rightBtn = new Button("Right");
-        AnchorPane.setTopAnchor(rightBtn, 30.0);
-        AnchorPane.setRightAnchor(rightBtn, 10.0);
-        AnchorPane.setBottomAnchor(rightBtn, 30.0);
-
-        AnchorPane root = new AnchorPane(topBtn, rightBtn, bottomBtn, leftBtn);
 
         Scene scene = new Scene(root, 300, 200);
         stage.setScene(scene);
 
-        stage.setTitle("AnchorPane in JavaFX");
+        stage.setTitle("GridPane in JavaFX");
 
         stage.show();
     }
