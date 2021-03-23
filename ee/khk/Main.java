@@ -28,6 +28,11 @@ public class Main extends Application{
         scrollPane.setPrefViewportHeight(150);
         scrollPane.setPrefViewportWidth(200);
 
+        scrollPane.setPannable(false);
+        scrollPane.setVvalue(0.5);
+        scrollPane.setHvalue(0.5);
+
+
         FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, headerLbl, scrollPane);
         Scene scene = new Scene(root, 300, 250);
 
