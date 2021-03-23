@@ -4,16 +4,11 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.MultipleSelectionModel;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
-
 import javafx.geometry.Orientation;
-import javafx.beans.value.ObservableValue;
-import javafx.beans.value.ChangeListener;
 
 public class Main extends Application{
 
@@ -25,37 +20,32 @@ public class Main extends Application{
     @Override
     public void start(Stage stage) throws Exception {
 
-        Label selectedLbl = new Label();
-
-        // loome nimekiri
         ObservableList<String> langs = FXCollections.observableArrayList("Java", "JavaScript", "C#", "Python");
         ListView<String> langsListView = new ListView<String>(langs);
         langsListView.setPrefSize(250, 150);
 
-        // saame elementide valimise mudel
-        MultipleSelectionModel<String> langsSelectionModel = langsListView.getSelectionModel();
-        langsSelectionModel.setSelectionMode(SelectionMode.MULTIPLE);
+        Button btn = new Button("Change");
 
-        // määrame kuular muudatuste jälgimiseks
-        langsSelectionModel.selectedItemProperty().addListener(new ChangeListener<String>(){
+        btn.setOnAction(event -> {
 
-            public void changed(ObservableValue<? extends String> changed, String oldValue, String newValue){
-
-                String selectedItems = "";
-                ObservableList<String> selected = langsSelectionModel.getSelectedItems();
-                for (String item : selected){
-                    selectedItems += item + " ";
-                }
-                selectedLbl.setText("Selected: " + selectedItems);
-            }
+            ObservableList<String> newLangs = FXCollections.observableArrayList("PHP", "Go", "C++");
+            langsListView.setItems(newLangs);
         });
 
-        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, selectedLbl, langsListView);
-
-        Scene scene = new Scene(root, 250, 200);
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, btn, langsListView);
+        Scene scene = new Scene(root, 300, 250);
 
         stage.setScene(scene);
         stage.setTitle("ListView in JavaFX");
         stage.show();
     }
 }
+
+
+
+
+
+
+
+
+
