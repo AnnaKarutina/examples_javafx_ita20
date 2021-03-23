@@ -10,6 +10,10 @@ import javafx.scene.control.TableColumn;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.geometry.Orientation;
+
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ChangeListener;
 
 public class Main extends Application{
 
@@ -21,7 +25,7 @@ public class Main extends Application{
     @Override
     public void start(Stage stage) throws Exception {
 
-        // loome nimekiri
+        // loome objektide nimekiti
         ObservableList<Person> people = FXCollections.observableArrayList(
 
                 new Person("Tom", 34),
@@ -29,24 +33,30 @@ public class Main extends Application{
                 new Person("Sam", 28),
                 new Person("Alice", 29)
         );
-        // määrame tabel ja lisame andmed
+        Label lbl = new Label();
         TableView<Person> table = new TableView<Person>(people);
         table.setPrefWidth(250);
         table.setPrefHeight(200);
 
         // veerg nime kuvamiseks
         TableColumn<Person, String> nameColumn = new TableColumn<Person, String>("Name");
-        // määrame veeru vabrik, seose nime jargi
         nameColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
-        // lisame veerg
         table.getColumns().add(nameColumn);
 
-        // veerg vanuse jaoks
+        // veerg vanuse kuvamiseks
         TableColumn<Person, Integer> ageColumn = new TableColumn<Person, Integer>("Age");
         ageColumn.setCellValueFactory(new PropertyValueFactory<Person, Integer>("age"));
         table.getColumns().add(ageColumn);
 
-        FlowPane root = new FlowPane(10, 10, table);
+        TableView.TableViewSelectionModel<Person> selectionModel = table.getSelectionModel();
+        selectionModel.selectedItemProperty().addListener(new ChangeListener<Person>(){
+
+            public void changed(ObservableValue<? extends Person> val, Person oldVal, Person newVal){
+                if(newVal != null) lbl.setText("Selected: " + newVal.getName());
+            }
+        });
+
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, lbl, table);
 
         Scene scene = new Scene(root, 300, 250);
 
